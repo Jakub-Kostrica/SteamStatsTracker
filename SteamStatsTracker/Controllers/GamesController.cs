@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace SteamStatsTracker.Controllers
 {
@@ -11,9 +12,14 @@ namespace SteamStatsTracker.Controllers
 
         [HttpGet(Name = "GetGames")]
         public IActionResult GetGames()
-        {
-            string game = "Warframe";
-            return Ok(games);
+        { 
+            string favGame = "Warframe";
+
+            GameData data = new GameData(favGame, games);
+
+            Console.WriteLine(JsonSerializer.Serialize(data));
+            
+            return Ok(data);
         }
     }
 }
